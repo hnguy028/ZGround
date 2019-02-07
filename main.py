@@ -16,10 +16,6 @@ if __name__ == "__main__":
     engine = GameEngine()
     engine.load_window()
 
-    HW = FRAMEPIXELWIDTH / 2
-    HH = FRAMEPIXELHEIGHT / 2
-    player = Player(STICKMAN_DIRECTORY + "stickman.png", HW, HH)
-
     while running:
         if engine.state == State.GAME:
             for event in pygame.event.get():
@@ -28,8 +24,7 @@ if __name__ == "__main__":
                     pygame.quit()
                     sys.exit()
                 else:
-                    if event.type == pygame.KEYDOWN:
-                        pass
+                    engine.handle_event(event)
 
             engine.draw_game()
 
@@ -42,7 +37,6 @@ if __name__ == "__main__":
                 else:
                     engine.handle_event(event)
             engine.draw_start_menu()
-            player.draw_idle(engine.window.surface)
 
         else:
             print("State Error")
@@ -50,7 +44,7 @@ if __name__ == "__main__":
             sys.exit()
 
         pygame.display.update()
-        mainClock.tick(5)
+        mainClock.tick(30)
 
     pygame.quit()
     sys.exit()
